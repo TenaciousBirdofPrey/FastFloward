@@ -4,6 +4,7 @@
 
  pub struct Canvas{
 	pub let width: UInt8
+
 	pub let height: UInt8
 	pub let pixels: String
 
@@ -22,35 +23,37 @@ pub resource Picture{
 	}
 }
 
-pub fun serializeStringArray_andFrame (_ lines: [String]): String {
-   //build frame
-   var top = "====="
-   lines.insert(at:0,top)
-   lines.insert(at:6, top)
-
-
+pub fun serializeStringArray (_ lines: [String]): String {
 	var buffer = ""
-	var r_edge ="|"
-	var l_edge ="|"
-	var edged = ""
-	var edger = ""
-
 	for line in lines {
-	edger=  line.concat(r_edge) //  *....*|
-	edged= l_edge.concat(edger)
-
-
-	 buffer = buffer.concat(edged)
-
+	 buffer = buffer.concat(line)
 	}
-	log(buffer.slice(from:0, upTo:7))
-	log(buffer.slice(from:7, upTo:14))
-	log(buffer.slice(from:14, upTo:21))
-	log(buffer.slice(from:21, upTo:28))
-	log(buffer.slice(from:28, upTo:35))
-	log(buffer.slice(from:35, upTo:42))
-	log(buffer.slice(from:42, upTo:49))
+
 	return buffer
+}
+
+pub fun display(_ canvas:Canvas){
+	//log("gonna make it now")
+	//log(canvas.pixels)
+	var frame="|"
+	log("-------")
+	var layer1= frame.concat(canvas.pixels.slice(from: 0, upTo: 5))
+	log(layer1.concat("|"))
+
+	var layer2=frame.concat(canvas.pixels.slice(from: 5, upTo: 10))
+	log(layer2.concat("|"))
+
+	var layer3=frame.concat(canvas.pixels.slice(from: 10, upTo: 15))
+	log(layer3.concat("|"))
+
+	var layer4=frame.concat(canvas.pixels.slice(from: 15, upTo: 20))
+	log(layer4.concat("|"))
+
+	var layer5=frame.concat(canvas.pixels.slice(from: 20, upTo: 25))
+	log(layer5.concat("|"))	
+
+	log("-------")
+
 }
 
 pub fun main(){
@@ -64,9 +67,10 @@ pub fun main(){
 	let canvasX = Canvas(
 	width: 5,
 	height: 5,
-	pixels:  serializeStringArray_andFrame(pixelsX)
+	pixels:  serializeStringArray(pixelsX)
 	)
 
+	display(canvasX)
 
  let letterX <- create Picture(canvas:canvasX)
  log(letterX.canvas)
